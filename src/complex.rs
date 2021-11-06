@@ -6,7 +6,7 @@ pub struct Complex {
     imaginary: f64,
 }
 
-trait ApproxEq{
+trait ApproxEq {
     fn approx_eq(self, other: Self, tolerance: f64) -> bool;
 }
 
@@ -15,11 +15,11 @@ impl Complex {
         Complex { real, imaginary }
     }
 
-    pub fn re(self) -> f64{
+    pub fn re(self) -> f64 {
         self.real
     }
 
-    pub fn im(self) -> f64{
+    pub fn im(self) -> f64 {
         self.imaginary
     }
 
@@ -65,15 +65,16 @@ impl Mul for Complex {
     }
 }
 
-impl ApproxEq for Complex{
-    fn approx_eq(self, other: Self, tolerance: f64) -> bool{
-        (self.real - other.real).abs() < tolerance && (self.imaginary - other.imaginary).abs() < tolerance
+impl ApproxEq for Complex {
+    fn approx_eq(self, other: Self, tolerance: f64) -> bool {
+        (self.real - other.real).abs() < tolerance
+            && (self.imaginary - other.imaginary).abs() < tolerance
     }
 }
 
-impl ApproxEq for f64{
-    fn approx_eq(self, other: Self, tolerance: f64) -> bool{
-        (self-other).abs() < tolerance
+impl ApproxEq for f64 {
+    fn approx_eq(self, other: Self, tolerance: f64) -> bool {
+        (self - other).abs() < tolerance
     }
 }
 
@@ -83,7 +84,7 @@ mod tests {
     const TOLERANCE: f64 = f64::EPSILON;
 
     #[test]
-    fn test_modulus(){
+    fn test_modulus() {
         let z = Complex::new(0.0, 0.0);
         let w = Complex::new(1.0, 1.0);
         let v = Complex::new(-3.0, -4.0);
@@ -94,20 +95,20 @@ mod tests {
     }
 
     #[test]
-    fn test_conjugate(){
+    fn test_conjugate() {
         let z = Complex::new(1.0, 1.0);
         let z_conjugate = Complex::new(1.0, -1.0);
 
         assert!(z.conjugate().approx_eq(z_conjugate, TOLERANCE));
     }
-    
+
     #[test]
     fn test_add() {
         let z = Complex::new(1.0, 2.0);
         let w = Complex::new(2.0, -3.0);
         let z_plus_w = Complex::new(3.0, -1.0);
 
-        assert!((z+w).approx_eq(z_plus_w, TOLERANCE));
+        assert!((z + w).approx_eq(z_plus_w, TOLERANCE));
     }
 
     #[test]
@@ -115,8 +116,8 @@ mod tests {
         let z = Complex::new(1.0, 2.0);
         let w = Complex::new(2.0, -3.0);
         let z_minus_w = Complex::new(-1.0, 5.0);
-        
-        assert!((z-w).approx_eq(z_minus_w, TOLERANCE));
+
+        assert!((z - w).approx_eq(z_minus_w, TOLERANCE));
     }
 
     #[test]
@@ -125,6 +126,6 @@ mod tests {
         let w = Complex::new(0.0, 1.0);
         let z_times_w = Complex::new(-1.0, 1.0);
 
-        assert!((z*w).approx_eq(z_times_w, TOLERANCE));
+        assert!((z * w).approx_eq(z_times_w, TOLERANCE));
     }
 }

@@ -7,6 +7,19 @@
         {
             "type": "lldb",
             "request": "launch",
+            "name": "Debug mandelbrot",
+            "cargo": {
+                "args": [
+                    "build",
+                ]
+            },
+            "program": "${workspaceFolder}/target/debug/mandelbrot",
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
             "name": "Debug unit tests in library 'mandelbrot'",
             "cargo": {
                 "args": [
