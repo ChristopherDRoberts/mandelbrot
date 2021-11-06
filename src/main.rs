@@ -1,4 +1,4 @@
-use mandelbrot::Complex;
+use mandelbrot::complex::Complex;
 
 fn main() {
     println!("Hello world!");
