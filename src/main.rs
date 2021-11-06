@@ -3,26 +3,34 @@ use mandelbrot::canvas::Pixel;
 use mandelbrot::complex::Complex;
 
 fn main() {
-    let width = 1920;
-    let height = 1920;
+    let width = 7000;
+    let height = 7000;
     let mut canvas = Canvas::new(width, height);
 
     let real_lower = -2.0;
     let real_upper = 0.5;
     let im_lower = -1.25;
     let im_upper = 1.25;
+    let max_iterations = 200;
 
-    for row in 0..height{
-        for col in 0..width{
-            let c = map_pixel_to_complex(col, row, width, height, real_lower, real_upper, im_lower, im_upper);
-            let result = iterate(c, 1000);
-            if result.diverge{
-                canvas.set_pixel(col, row, Pixel::new(255,255,255));
+    let mut palette = vec![0u8; max_iterations];
+    for i in 0..max_iterations {
+        palette[i] = (255 as f64 * ((i+1) as f64 / max_iterations as f64).sqrt()) as u8;
+    }
+
+    for row in 0..height {
+        for col in 0..width {
+            let c = map_pixel_to_complex(
+                col, row, width, height, real_lower, real_upper, im_lower, im_upper,
+            );
+            let result = iterate(c, max_iterations);
+            if result.diverge {
+                canvas.set_pixel(col, row, Pixel::new(0, 0, palette[result.iterations]));
             }
         }
     }
 
-    print!("{}",canvas.to_ppm());
+    print!("{}", canvas.to_ppm());
 }
 
 fn map_pixel_to_complex(
