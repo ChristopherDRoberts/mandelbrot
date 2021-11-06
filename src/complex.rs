@@ -23,8 +23,12 @@ impl Complex {
         self.imaginary
     }
 
+    pub fn modulus_squared(&self) -> f64 {
+        self.real.powf(2.0) + self.imaginary.powf(2.0)
+    }
+
     pub fn modulus(&self) -> f64 {
-        (self.real.powf(2.0) + self.imaginary.powf(2.0)).sqrt()
+        self.modulus_squared().sqrt()
     }
 
     pub fn conjugate(&self) -> Self {
